@@ -137,7 +137,27 @@ class Program
             SecurityConfiguration = new SecurityConfiguration
             {
                 AutoAcceptUntrustedCertificates = true,
-                ApplicationCertificate = new CertificateIdentifier()
+                ApplicationCertificate = new CertificateIdentifier
+                {
+                    StoreType = "Directory",
+                    StorePath = "%LocalApplicationData%/OpcConnectorTest/pki/own",
+                    SubjectName = "CN=OpcConnectorTest, C=US, S=Arizona, O=OpcConnectorTest"
+                },
+                TrustedIssuerCertificates = new CertificateTrustList
+                {
+                    StoreType = "Directory",
+                    StorePath = "%LocalApplicationData%/OpcConnectorTest/pki/issuer"
+                },
+                TrustedPeerCertificates = new CertificateTrustList
+                {
+                    StoreType = "Directory",
+                    StorePath = "%LocalApplicationData%/OpcConnectorTest/pki/trusted"
+                },
+                RejectedCertificateStore = new CertificateTrustList
+                {
+                    StoreType = "Directory",
+                    StorePath = "%LocalApplicationData%/OpcConnectorTest/pki/rejected"
+                }
             },
             TransportQuotas = new TransportQuotas { OperationTimeout = OperationTimeoutMs },
             ClientConfiguration = new ClientConfiguration { DefaultSessionTimeout = SessionTimeoutMs }
